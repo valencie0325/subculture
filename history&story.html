@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History&story</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 2rem 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #b38b4d;
+    }
+
+    /* Scroll container */
+    .video-scroller {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      white-space: nowrap;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .video-scroller:active {
+      cursor: grabbing;
+    }
+
+    /* Video track */
+    .video-track {
+      display: inline-flex;
+      animation: scroll-left 30s linear infinite;
+      will-change: transform;
+    }
+
+    /* Pause animation on hover */
+    .video-scroller:hover .video-track {
+      animation-play-state: paused;
+    }
+
+    /* Video item */
+    .video-item {
+      flex: 0 0 320px;
+      margin-right: 1.5rem;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .video-item iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      display: block;
+    }
+
+    .video-item .label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      text-align: center;
+      z-index: 1;
+    }
+
+    /* Keyframes: left to right scroll */
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Duplicate track for seamless loop */
+    .video-track.duplicate {
+      animation: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .video-item {
+        flex: 0 0 250px;
+      }
+      .video-item iframe {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Auto-Scrolling YouTube Gallery</h1>
+
+  <div class="video-scroller" id="scroller">
+    <div class="video-track" id="track">
+      <!-- Video items will be duplicated by JS -->
+    </div>
+  </div>
+
+  <!-- Sample YouTube embeds (replace with your own) -->
+  <script>
+    const videos = [
+      { src: 'https://www.youtube.com/watch?v=b4g4hm2UtBs', label: 'kintsugi' },
+      { src: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ', label: 'Rick Roll' },
+      { src: 'https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1&mute=1&loop=1&playlist=9bZkp7q19f0', label: 'PSY - Gentleman' },
+      { src: 'https://www.youtube.com/embed/kJQP7kiw5Fk?autoplay=1&mute=1&loop=1&playlist=kJQP7kiw5Fk', label: 'Dark Horse' },
+      { src: 'https://www.youtube.com/embed/9ZIgQFKaK4Y?autoplay=1&mute=1&loop=1&playlist=9ZIgQFKaK4Y', label: 'Sample Embed' },
+      { src: 'https://www.youtube.com/embed/il_t1WVLNxk?autoplay=1&mute=1&loop=1&playlist=il_t1WVLNxk', label: 'Another Video' }
+    ];
+
+    const track = document.getElementById('track');
+    const scroller = document.getElementById('scroller');
+
+    // Build video items
+    function createVideoItem(video) {
+      const div = document.createElement('div');
+      div.className = 'video-item';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = video.src;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = video.label;
+
+      div.appendChild(iframe);
+      div.appendChild(label);
+      return div;
+    }
+
+    // Add videos twice for seamless loop
+    videos.forEach(v => track.appendChild(createVideoItem(v)));
+    videos.forEach(v => track.appendChild(createVideoItem(v))); // duplicate
+
+    // Optional: Click-and-drag scrolling
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    scroller.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - scroller.offsetLeft;
+      scrollLeft = scroller.scrollLeft;
+      scroller.style.cursor = 'grabbing';
+    });
+
+    scroller.addEventListener('mouseleave', () => {
+      isDown = false;
+      scroller.style.cursor = 'grab';
+    });
+
+    scroller.addEventListener('mouseup', () => {
+      isDown = false;
+      scroller.style.cursor = 'grab';
+    });
+
+    scroller.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scroller.offsetLeft;
+      const walk = (x - startX) * 2;
+      scroller.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch support (mobile)
+    scroller.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - scroller.offsetLeft;
+      scrollLeft = scroller.scrollLeft;
+    }, { passive: true });
+
+    scroller.addEventListener('touchend', () => {
+      isDown = false;
+    });
+
+    scroller.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - scroller.offsetLeft;
+      const walk = (x - startX) * 2;
+      scroller.scrollLeft = scrollLeft - walk;
+    }, { passive: false });
+  </script>
+
+</body>
