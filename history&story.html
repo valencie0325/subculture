@@ -2,205 +2,268 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History&story</title>
-    <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+	<meta charset="UTF-8">
+	<title>Kintsugi History & Story</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background: #d2ccb4;
+			color: #fff;
+			padding: 2rem 0;
+		}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      padding: 2rem 0;
-    }
+		h1 {
+			text-align: center;
+			margin-bottom: 1.5rem;
+			color: #b38b4d;
+		}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #b38b4d;
-    }
+		.container {
+			width: 640px;
+			margin: 20px auto;
+			text-align: center;
+		}
 
-    /* Scroll container */
-    .video-scroller {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      white-space: nowrap;
-      user-select: none;
-      cursor: grab;
-    }
+		.slider {
+			position: relative;
+			width: 100%;
+			height: 360px;
+			overflow: hidden;
+		}
 
-    .video-scroller:active {
-      cursor: grabbing;
-    }
+		.embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+			border-radius: 12px;
+			overflow: hidden;
+		}
 
-    /* Video track */
-    .video-track {
-      display: inline-flex;
-      animation: scroll-left 30s linear infinite;
-      will-change: transform;
-    }
+		.embed.active {
+			display: block;
+		}
 
-    /* Pause animation on hover */
-    .video-scroller:hover .video-track {
-      animation-play-state: paused;
-    }
+		.arrows {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 10px 0;
+		}
 
-    /* Video item */
-    .video-item {
-      flex: 0 0 320px;
-      margin-right: 1.5rem;
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
+		.arrow {
+			font-size: 108px;
+			color: #fff;
+			cursor: pointer;
+			user-select: none;
+			padding: 30px 20px 60px 20px;
+		}
 
-    .video-item iframe {
-      width: 100%;
-      height: 180px;
-      border: none;
-      display: block;
-    }
+		.dots {
+			margin-top: 10px;
+		}
 
-    .video-item .label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 0.5rem;
-      font-size: 0.9rem;
-      text-align: center;
-      z-index: 1;
-    }
+		.dot {
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			margin: 0 5px;
+			background: #b38b4d;
+			border-radius: 50%;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
 
-    /* Keyframes: left to right scroll */
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
+		.dot.active {
+			background: #333;
+		}
 
-    /* Duplicate track for seamless loop */
-    .video-track.duplicate {
-      animation: none;
-    }
+		.nav-bar {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			padding: 14px 0;
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+			color: rgba(255, 255, 255, 0.9);
+			font-size: 13px;
+			font-weight: 500;
+			z-index: 1000;
+			animation: float 3s ease-in-out infinite;
+			/* 完全透明交互 */
+			user-select: none;
+		}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .video-item {
-        flex: 0 0 250px;
-      }
-      .video-item iframe {
-        height: 140px;
-      }
-    }
-  </style>
+		.nav-item {
+
+			color: #b38b4d;
+			font-size: 22px;
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			cursor: pointer;
+		}
+
+		.nav-item:hover {
+			opacity: 1;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+
+			50% {
+				transform: translateY(-6px);
+			}
+		}
+	</style>
 </head>
+
 <body>
+	<h1>Kintsugi History & Story</h1>
+	<div class="container">
+		<div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br><br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 
-  <h1>Kintsugi History & Story</h1>
 
-  <div class="video-scroller" id="scroller">
-    <div class="video-track" id="track">
-      <!-- Video items will be duplicated by JS -->
-    </div>
-  </div>
+		</div>
+		<div class="arrows">
+			<span class="arrow left">‹</span>
+			<div class="slider">
+				<iframe class="embed active" src="https://www.youtube.com/embed/b4g4hm2UtBs?si=_me9pOm0Ura5SM7X"
+					allowfullscreen></iframe>
+				<iframe class="embed"
+					src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ"></iframe>
+				<iframe class="embed"
+					src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1&mute=1&loop=1&playlist=9bZkp7q19f0"></iframe>
+				<iframe class="embed"
+					src="https://www.youtube.com/embed/kJQP7kiw5Fk?autoplay=1&mute=1&loop=1&playlist=kJQP7kiw5Fk"></iframe>
+				<iframe class="embed"
+					src="https://www.youtube.com/embed/9ZIgQFKaK4Y?autoplay=1&mute=1&loop=1&playlist=9ZIgQFKaK4Y"></iframe>
+				<iframe class="embed"
+					src="https://www.youtube.com/embed/il_t1WVLNxk?autoplay=1&mute=1&loop=1&playlist=il_t1WVLNxk"></iframe>
+			</div>
+			<span class="arrow right">›</span>
+		</div>
 
-  <!-- Sample YouTube embeds (replace with your own) -->
-  <script>
-    const videos = [
-      { src: 'https://www.youtube.com/embed/b4g4hm2UtBs?si=_me9pOm0Ura5SM7X', label: 'kintsugi' },
-      { src: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ', label: 'Rick Roll' },
-      { src: 'https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1&mute=1&loop=1&playlist=9bZkp7q19f0', label: 'PSY - Gentleman' },
-      { src: 'https://www.youtube.com/embed/kJQP7kiw5Fk?autoplay=1&mute=1&loop=1&playlist=kJQP7kiw5Fk', label: 'Dark Horse' },
-      { src: 'https://www.youtube.com/embed/9ZIgQFKaK4Y?autoplay=1&mute=1&loop=1&playlist=9ZIgQFKaK4Y', label: 'Sample Embed' },
-      { src: 'https://www.youtube.com/embed/il_t1WVLNxk?autoplay=1&mute=1&loop=1&playlist=il_t1WVLNxk', label: 'Another Video' }
-    ];
 
-    const track = document.getElementById('track');
-    const scroller = document.getElementById('scroller');
 
-    // Build video items
-    function createVideoItem(video) {
-      const div = document.createElement('div');
-      div.className = 'video-item';
+		<div class="dots">
+			<span class="dot active"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+		</div>
+	</div>
+	<div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br><br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br><br>
+		<br>
+		<br>
+	</div>
 
-      const iframe = document.createElement('iframe');
-      iframe.src = video.src;
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      iframe.allowFullscreen = true;
+	<div class="nav-bar">
+		<a href="index.html" class="nav-item">Home</a>
+		<a href="history&story.html" class="nav-item">History</a>
+		<a href="event.html" class="nav-item">Events</a>
+		<a href="about.html" class="nav-item">About</a>
+	</div>
 
-      const label = document.createElement('div');
-      label.className = 'label';
-      label.textContent = video.label;
+	<script>
+		const embeds = document.querySelectorAll('.embed');
+		const dots = document.querySelectorAll('.dot');
+		const left = document.querySelector('.left');
+		const right = document.querySelector('.right');
+		let current = 0;
 
-      div.appendChild(iframe);
-      div.appendChild(label);
-      return div;
-    }
+		function show(index)
+		{
+			embeds.forEach((v, i) =>
+			{
+				if (i === index)
+				{
+					v.classList.add('active');
+				} else
+				{
+					v.classList.remove('active');
+				}
+			});
+			dots.forEach((d, i) => d.classList.toggle('active', i === index));
+			current = index;
+		}
 
-    // Add videos twice for seamless loop
-    videos.forEach(v => track.appendChild(createVideoItem(v)));
-    videos.forEach(v => track.appendChild(createVideoItem(v))); // duplicate
-
-    // Optional: Click-and-drag scrolling
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    scroller.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - scroller.offsetLeft;
-      scrollLeft = scroller.scrollLeft;
-      scroller.style.cursor = 'grabbing';
-    });
-
-    scroller.addEventListener('mouseleave', () => {
-      isDown = false;
-      scroller.style.cursor = 'grab';
-    });
-
-    scroller.addEventListener('mouseup', () => {
-      isDown = false;
-      scroller.style.cursor = 'grab';
-    });
-
-    scroller.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scroller.offsetLeft;
-      const walk = (x - startX) * 2;
-      scroller.scrollLeft = scrollLeft - walk;
-    });
-
-    // Touch support (mobile)
-    scroller.addEventListener('touchstart', (e) => {
-      isDown = true;
-      startX = e.touches[0].pageX - scroller.offsetLeft;
-      scrollLeft = scroller.scrollLeft;
-    }, { passive: true });
-
-    scroller.addEventListener('touchend', () => {
-      isDown = false;
-    });
-
-    scroller.addEventListener('touchmove', (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - scroller.offsetLeft;
-      const walk = (x - startX) * 2;
-      scroller.scrollLeft = scrollLeft - walk;
-    }, { passive: false });
-  </script>
-
+		left.onclick = () => show((current - 1 + embeds.length) % embeds.length);
+		right.onclick = () => show((current + 1) % embeds.length);
+		dots.forEach((d, i) => d.onclick = () => show(i));
+	</script>
 </body>
+
+</html>
