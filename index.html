@@ -5,11 +5,13 @@
   <div class="fragment" data-story="01">
     <p>“This crack taught me how to slow down.”</p>
   </div>
-  <div>
-    <li><a href="index.html">Home</a></li>
-    <li> <a href="Process.html">Process</a></li>
-    <li><a href="history&story.html">History&story</a></li>
-  </div>
+  
+  <div class="nav-bar">
+		<a href="index.html" class="nav-item">Home</a>
+		<a href="history&story.html" class="nav-item">History</a>
+		<a href="Process.html" class="nav-item">Process</a>
+		<a href="about.html" class="nav-item">About</a>
+	</div>
 </section>
 
 <style>
@@ -40,4 +42,32 @@
   transition: opacity 0.5s;
 }
 .bowl:hover .fragment { opacity: 1; }
+.nav-bar {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			padding: 14px 0;
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+			color: rgba(255, 255, 255, 0.9);
+			font-size: 13px;
+			font-weight: 500;
+			z-index: 1000;
+			animation: float 3s ease-in-out infinite;
+			/* 完全透明交互 */
+			user-select: none;
+		}
+
+		.nav-item {
+
+			color: #b38b4d;
+			font-size: 22px;
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			cursor: pointer;
+		}
 </style>
