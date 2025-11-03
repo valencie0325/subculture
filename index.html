@@ -1,122 +1,179 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8">
-<title>Kintsugi Transition</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  body,html{margin:0;padding:0;height:100%;overflow:hidden;background:#d2ccb4;}
-  .bowl{
-    position:relative;
-    width:100vw;height:100vh;
-    display:flex;justify-content:center;align-items:center;
-    overflow:hidden;
-  }
+  <meta charset="UTF-8">
+  <title>Kintsugi Transition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #d2ccb4;
+    }
 
-  /* ---------- 裂纹 ---------- */
-  .cracks{
-    position:absolute;
-    width:100%;height:100%;
-    pointer-events:none;               /* 只让碎片可交互 */
-  }
-  .gold-line{
-    fill:none;
-    stroke:#d4af37;
-    stroke-width:28;
-    stroke-linecap:round;
-    /* 初始状态：短、透明、位于中心 */
-    opacity:0;
-    transform-origin:center;
-    animation: crackOut 2.2s cubic-bezier(.2,.8,.2,1) forwards;
-  }
-  @keyframes crackOut{
-    0%   {stroke-dasharray:0 500; opacity:1; transform:scale(0.1);}
-    70%  {stroke-dasharray:500 0; opacity:1; transform:scale(1);}
-    100% {stroke-dasharray:500 0; opacity:0; transform:scale(1.3);}
-  }
+    .bowl {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-  /* ---------- 碎片文字 ---------- */
-  .fragment{
-    position:absolute;
-    font-family:'Noto Serif JP',serif;
-    color:#255;
-    font-size:1.2rem;
-    opacity:0;
-    transition:opacity .4s;
-    pointer-events:none;
-  }
-  .bowl:hover .fragment{opacity:1;pointer-events:auto;}
+    /* ---------- 裂纹 ---------- */
+    .cracks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      /* 只让碎片可交互 */
+    }
 
-  /* ---------- 网站内容（淡入） ---------- */
-  .site{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    opacity:0;
-    animation: siteIn 1.2s 2.4s forwards;
-  }
-  @keyframes siteIn{ to{opacity:1;} }
+    .gold-line {
+      fill: none;
+      stroke: #d4af37;
+      stroke-width: 28;
+      stroke-linecap: round;
+      /* 初始状态：短、透明、位于中心 */
+      opacity: 0;
+      transform-origin: center;
+      animation: crackOut 2.2s cubic-bezier(.2, .8, .2, 1) forwards;
+    }
 
-  .nav-bar{
-    position:fixed;
-    bottom:0;left:0;width:100%;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    padding:14px 0;
-    display:flex;justify-content:center;gap:40px;
-    font-size:13px;font-weight:500;
-    color:rgba(255,255,255,.9);
-    z-index:10;
-    animation:float 3s ease-in-out infinite;
-  }
-  @keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-6px);}
-  }
-  .nav-item{
-    color:#b38b4d;
-    font-size:22px;
-    font-family:Georgia,serif;
-    text-decoration:none;
-    transition:color .3s;
-  }
-  .nav-item:hover{color:#fff;}
-</style>
+    @keyframes crackOut {
+      0% {
+        stroke-dasharray: 0 500;
+        opacity: 1;
+        transform: scale(0.1);
+      }
+
+      70% {
+        stroke-dasharray: 500 0;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        stroke-dasharray: 500 0;
+        opacity: 0;
+        transform: scale(1.3);
+      }
+    }
+
+    /* ---------- 碎片文字 ---------- */
+    .fragment {
+      position: absolute;
+      font-family: 'Noto Serif JP', serif;
+      color: #255;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity .4s;
+      pointer-events: none;
+    }
+
+    .bowl:hover .fragment {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ---------- 网站内容（淡入） ---------- */
+    .site {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: siteIn 1.2s 2.4s forwards;
+    }
+
+    @keyframes siteIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, .15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 14px 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .9);
+      z-index: 10;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .nav-item {
+      color: #b38b4d;
+      font-size: 22px;
+      font-family: Georgia, serif;
+      text-decoration: none;
+      transition: color .3s;
+    }
+
+    .nav-item:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
-<section class="bowl">
+  <section class="bowl">
 
-  <!-- 裂纹层 -->
-  <svg class="cracks" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
-    <!-- 三条不规则路径（可自行调节） -->
-    <path class="gold-line" d="M200 200 Q120 80 50 150"/>
-    <path class="gold-line" d="M200 200 Q280 90 340 180"/>
-    <path class="gold-line" d="M200 200 Q100 300 30 340"/>
-  </svg>
+    <!-- 裂纹层 -->
+    <svg class="cracks" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+      <!-- 三条不规则路径（可自行调节） -->
+      <path class="gold-line" d="M200 200 Q120 80 50 150" />
+      <path class="gold-line" d="M200 200 Q280 90 340 180" />
+      <path class="gold-line" d="M200 200 Q100 300 30 340" />
+    </svg>
 
-  <!-- 碎片文字（hover 显示） -->
-  <div class="fragment" style="top:18%;left:12%;">“This crack taught me how to slow down.”</div>
-  <div class="fragment" style="top:22%;right:8%;">“Every break is a new beginning.”</div>
-  <div class="fragment" style="bottom:15%;left:5%;">“Gold fills the gaps, not the flaws.”</div>
+    <!-- 碎片文字（hover 显示） -->
+    <div class="fragment" style="top:18%;left:12%;">“This crack taught me how to slow down.”</div>
+    <div class="fragment" style="top:22%;right:8%;">“Every break is a new beginning.”</div>
+    <div class="fragment" style="bottom:15%;left:5%;">“Gold fills the gaps, not the flaws.”</div>
 
-  <!-- 网站内容（动画结束后淡入） -->
-  <div class="site">
-    <h1 style="margin:0 0 .5em;font-family:'Noto Serif JP',serif;color:#333;">
-      Kintsugi Studio
-    </h1>
-    <nav class="nav-bar">
-      <a href="index.html" class="nav-item">Home</a>
-      <a href="history&story.html" class="nav-item">History</a>
-      <a href="Process.html" class="nav-item">Process</a>
-      <a href="about.html" class="nav-item">About</a>
-    </nav>
-  </div>
+    <!-- 网站内容（动画结束后淡入） -->
+    <div class="site">
+      <h1 style="margin:0 0 .5em;font-family:'Noto Serif JP',serif;color:#333;">
+        Kintsugi Studio
+      </h1>
+      <nav class="nav-bar">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="process.html" class="nav-item">Process</a>
+        <a href="history&story.html" class="nav-item">History</a>
+        <a href="about.html" class="nav-item">About</a>
+      </nav>
+    </div>
 
-</section>
+  </section>
 </body>
+
 </html>
