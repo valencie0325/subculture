@@ -113,6 +113,12 @@
 			display: none;
 			z-index: 9;
 		}
+
+		.disabled-image {
+			filter: grayscale(100%);
+			opacity: 0.2;
+			cursor: not-allowed;
+		}
 	</style>
 </head>
 
@@ -201,7 +207,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k6.png" alt="SUBLIMATE">
+			<img id="finish_img" src="img/k6.png" alt="SUBLIMATE" class="disabled-image">
 		</div>
 	</div>
 
@@ -218,6 +224,7 @@
 		const clockImg = document.getElementById('clock_img');
 		const paperImg = document.getElementById('paper_img');
 		const brushImg = document.getElementById('brush_img');
+		const finishImg = document.getElementById('finish_img');
 
 		let scatterImgs = [];
 		let scattered = false;
@@ -304,7 +311,6 @@
 					img.style.height = targetH + 'px';
 				});
 
-				console.log(" scatter img", i)
 				if (i == 8)
 				{
 					glueImg.src = "img/K2/k2-1.png";
@@ -347,6 +353,245 @@
 			glueImg.style.transition = 'none';
 			e.preventDefault();
 		});
+
+		function step_waitingImg()
+		{//
+			if (clockImg)
+			{
+				const rect = clockImg.getBoundingClientRect();
+				const left = rect.left + window.scrollX;
+				const top = rect.top + window.scrollY;
+
+				// 创建 K3-2
+				const k32 = new Image();
+				k32.src = 'img/K3/K3-2.png';
+				k32.style.position = 'absolute';
+				k32.style.left = left + 'px';
+				k32.style.top = top + 'px';
+				k32.style.width = rect.width + 'px';
+				k32.style.height = rect.height + 'px';
+				k32.style.zIndex = '10';
+				k32.style.border = '2px solid red';
+				k32.style.transition = 'transform 15s linear';
+				document.body.appendChild(k32);
+
+				// 创建 K3-3
+				const k33 = new Image();
+				k33.src = 'img/K3/K3-3.png';
+				k33.style.position = 'absolute';
+				k33.style.left = left + 'px';
+				k33.style.top = top + 'px';
+				k33.style.width = rect.width + 'px';
+				k33.style.height = rect.height + 'px';
+				k33.style.zIndex = '10';
+				document.body.appendChild(k33);
+
+				// 旋转
+				requestAnimationFrame(() =>
+				{
+					k32.style.transform = 'rotate(360deg)';
+				});
+
+				k32.addEventListener('transitionend', () =>
+				{
+					step_paperImg()
+				});
+			}
+		}
+
+		function step_paperImg()
+		{
+			// paper_img 是 REPAIR 步骤图片
+			paperImg.src = 'img/K4/k4-1.png';
+
+			// 创建遮罩区域 (120%)
+			const rect = paperImg.getBoundingClientRect();
+			const centerX = rect.left + rect.width / 2 + window.scrollX;
+			const centerY = rect.top + rect.height / 2 + window.scrollY;
+			const size = rect.width * 1.2;
+
+			const maskArea = {
+				x: centerX - size / 2,
+				y: centerY - size / 2,
+				width: size,
+				height: size
+			};
+
+			// 创建 k4-4.png
+			const k44 = new Image();
+			k44.src = 'img/K4/k4-3.png';
+			k44.style.position = 'absolute';
+			k44.style.left = maskArea.x + 'px';
+			k44.style.top = maskArea.y + 'px';
+			k44.style.width = maskArea.width + 'px';
+			k44.style.height = maskArea.height + 'px';
+			k44.style.cursor = 'move';
+			k44.style.zIndex = '1002';
+			document.body.appendChild(k44);
+
+			let isDragging4 = false;
+			let startX, startY;
+
+			k44.addEventListener('mousedown', (e) =>
+			{
+				isDragging4 = true;
+				startX = k44.offsetLeft;
+				startY = k44.offsetTop;
+				const mouseX = e.clientX + window.scrollX;
+				const mouseY = e.clientY + window.scrollY;
+				k44.dataset.offsetX = mouseX - startX;
+				k44.dataset.offsetY = mouseY - startY;
+				e.preventDefault();
+			});
+
+			document.addEventListener('mousemove', (e) =>
+			{
+				if (!isDragging4) return;
+				const mouseX = e.clientX + window.scrollX;
+				const mouseY = e.clientY + window.scrollY;
+				k44.style.left = (mouseX - parseFloat(k44.dataset.offsetX)) + 'px';
+				k44.style.top = (mouseY - parseFloat(k44.dataset.offsetY)) + 'px';
+
+				const dist = Math.sqrt(
+					Math.pow(k44.offsetLeft - startX, 2) +
+					Math.pow(k44.offsetTop - startY, 2)
+				);
+				if (dist > 756)
+				{  // 20cm ≈ 756px
+					paper_img.src = 'img/k4.png';
+					k44.remove();
+					step_brushImg()
+				}
+			});
+
+			document.addEventListener('mouseup', () =>
+			{
+				isDragging4 = false;
+			});
+		}
+
+		let isBrush = false
+		function step_brushImg()
+		{
+			if (isBrush) return;
+			isBrush = true;
+			brushImg.src = 'img/K5/k5-2.png';
+
+			// 创建遮罩区域 (120%)
+			const rect = brushImg.getBoundingClientRect();
+			const centerX = rect.left + rect.width / 2 + window.scrollX;
+			const centerY = rect.top + rect.height / 2 + window.scrollY;
+			const size = rect.width * 1.1;
+
+			const maskArea = {
+				x: centerX - size / 2,
+				y: centerY - size / 2,
+				width: size,
+				height: size
+			};
+
+			// 创建 k4-4.png
+			const k44 = new Image();
+			k44.src = 'img/K5/k5-1.png';
+			k44.style.position = 'absolute';
+			k44.style.left = (maskArea.x - 200) + 'px';
+			k44.style.top = maskArea.y + 'px';
+			k44.style.width = maskArea.width + 'px';
+			k44.style.height = maskArea.height + 'px';
+			k44.style.cursor = 'move';
+			k44.style.zIndex = '1002';
+			document.body.appendChild(k44);
+
+			let isDragging4 = false;
+			let startX, startY;
+
+			k44.addEventListener('mousedown', (e) =>
+			{
+				isDragging4 = true;
+				startX = k44.offsetLeft;
+				startY = k44.offsetTop;
+				const mouseX = e.clientX + window.scrollX;
+				const mouseY = e.clientY + window.scrollY;
+				k44.dataset.offsetX = mouseX - startX;
+				k44.dataset.offsetY = mouseY - startY;
+				e.preventDefault();
+			});
+
+			document.addEventListener('mousemove', (e) =>
+			{
+				if (!isDragging4) return;
+				const mouseX = e.clientX + window.scrollX;
+				const mouseY = e.clientY + window.scrollY;
+				k44.style.left = (mouseX - parseFloat(k44.dataset.offsetX)) + 'px';
+				k44.style.top = (mouseY - parseFloat(k44.dataset.offsetY)) + 'px';
+
+				const dist = Math.sqrt(
+					Math.pow(k44.offsetLeft - startX, 2) +
+					Math.pow(k44.offsetTop - startY, 2)
+				);
+				if (dist > 378)
+				{
+					brushImg.src = 'img/K5/k5-1.png';
+					k44.remove();
+					step_finishImg();
+				}
+			});
+
+			document.addEventListener('mouseup', () =>
+			{
+				isDragging4 = false;
+			});
+		}
+		let isFinish = false
+		function step_finishImg()
+		{
+			if (isFinish) return;
+			isFinish = true;
+			finishImg.src = 'img/K6/k6-1.png';
+			finishImg.classList.remove('disabled-image');
+
+			const rect = finishImg.getBoundingClientRect();
+			const left = rect.left + window.scrollX;
+			const top = rect.top + window.scrollY;
+
+			const k61 = new Image();
+			k61.src = 'img/K6/k6-2.png';
+			k61.style.position = 'absolute';
+			k61.style.left = left + 'px';
+			k61.style.top = top + 'px';
+			k61.style.width = rect.width + 'px';
+			k61.style.height = rect.height + 'px';
+			k61.style.zIndex = '10';
+			k61.style.opacity = '0';
+			document.body.appendChild(k61);
+
+			const k62 = new Image();
+			k62.src = 'img/K6/k6-3.png';
+			k62.style.position = 'absolute';
+			k62.style.left = left + 'px';
+			k62.style.top = top + 'px';
+			k62.style.width = rect.width + 'px';
+			k62.style.height = rect.height + 'px';
+			k62.style.zIndex = '10';
+			k62.style.opacity = '0';
+			document.body.appendChild(k62);
+
+			let current = 0;
+			const imgs = [k61, k62];
+			const durations = [0.08, 0.12, 0.08, 0.15, 0.1, 0.18, 0.12, 0.2]; // 光芒闪动节奏
+			let idx = 0;
+
+			const flash = () =>
+			{
+				imgs[current].style.opacity = '0';
+				current = 1 - current;
+				imgs[current].style.transition = `opacity ${durations[idx]}s ease`;
+				imgs[current].style.opacity = '1';
+				idx = (idx + 1) % durations.length;
+				setTimeout(flash, durations[idx] * 1000);
+			};
+			setTimeout(flash, 100); // 延迟启动
+		}
 
 		document.addEventListener('mousemove', (e) =>
 		{
@@ -436,115 +681,8 @@
 					glueImg.style.zIndex = '';
 					glueImg.style.transition = '';
 
+					step_waitingImg();
 
-					//
-					if (clockImg)
-					{
-						const rect = clockImg.getBoundingClientRect();
-						const left = rect.left + window.scrollX;
-						const top = rect.top + window.scrollY;
-
-						// 创建 K3-2
-						const k32 = new Image();
-						k32.src = 'img/K3/K3-2.png';
-						k32.style.position = 'absolute';
-						k32.style.left = left + 'px';
-						k32.style.top = top + 'px';
-						k32.style.width = rect.width + 'px';
-						k32.style.height = rect.height + 'px';
-						k32.style.zIndex = '10';
-						k32.style.border = '2px solid red';
-						k32.style.transition = 'transform 15s linear';
-						document.body.appendChild(k32);
-
-						// 创建 K3-3
-						const k33 = new Image();
-						k33.src = 'img/K3/K3-3.png';
-						k33.style.position = 'absolute';
-						k33.style.left = left + 'px';
-						k33.style.top = top + 'px';
-						k33.style.width = rect.width + 'px';
-						k33.style.height = rect.height + 'px';
-						k33.style.zIndex = '10';
-						document.body.appendChild(k33);
-
-						// 旋转
-						requestAnimationFrame(() =>
-						{
-							k32.style.transform = 'rotate(360deg)';
-						});
-
-						k32.addEventListener('transitionend', () =>
-						{
-							// paper_img 是 REPAIR 步骤图片
-							paper_img.src = 'img/K4/k4-1.png';
-
-							// 创建遮罩区域 (120%)
-							const rect = paper_img.getBoundingClientRect();
-							const centerX = rect.left + rect.width / 2 + window.scrollX;
-							const centerY = rect.top + rect.height / 2 + window.scrollY;
-							const size = rect.width * 1.2;
-
-							const maskArea = {
-								x: centerX - size / 2,
-								y: centerY - size / 2,
-								width: size,
-								height: size
-							};
-
-							// 创建 k4-4.png
-							const k44 = new Image();
-							k44.src = 'img/K4/k4-3.png';
-							k44.style.position = 'absolute';
-							k44.style.left = maskArea.x + 'px';
-							k44.style.top = maskArea.y + 'px';
-							k44.style.width = maskArea.width + 'px';
-							k44.style.height = maskArea.height + 'px';
-							k44.style.cursor = 'move';
-							k44.style.zIndex = '1002';
-							document.body.appendChild(k44);
-
-							let isDragging4 = false;
-							let startX, startY;
-
-							k44.addEventListener('mousedown', (e) =>
-							{
-								isDragging4 = true;
-								startX = k44.offsetLeft;
-								startY = k44.offsetTop;
-								const mouseX = e.clientX + window.scrollX;
-								const mouseY = e.clientY + window.scrollY;
-								k44.dataset.offsetX = mouseX - startX;
-								k44.dataset.offsetY = mouseY - startY;
-								e.preventDefault();
-							});
-
-							document.addEventListener('mousemove', (e) =>
-							{
-								if (!isDragging4) return;
-								const mouseX = e.clientX + window.scrollX;
-								const mouseY = e.clientY + window.scrollY;
-								k44.style.left = (mouseX - parseFloat(k44.dataset.offsetX)) + 'px';
-								k44.style.top = (mouseY - parseFloat(k44.dataset.offsetY)) + 'px';
-
-								const dist = Math.sqrt(
-									Math.pow(k44.offsetLeft - startX, 2) +
-									Math.pow(k44.offsetTop - startY, 2)
-								);
-								if (dist > 756)
-								{  // 20cm ≈ 756px
-									paper_img.src = 'img/k4.png';
-									k44.remove();
-								}
-							});
-
-							document.addEventListener('mouseup', () =>
-							{
-								isDragging4 = false;
-							});
-
-						});
-					}
 				}, 1000);
 
 				isDragging = false;
