@@ -21,7 +21,6 @@
 			display: flex;
 			flex-direction: column;
 			position: relative;
-			overflow: hidden;
 		}
 
 		h1 {
@@ -151,7 +150,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img id="glue_img" src="img/K2/k2-2.png" alt="ASSEMBLE">
+			<img id="glue_img" src="img/K2/k2-2.png" alt="ASSEMBLE" height="350px" weight="350px">
 		</div>
 	</div>
 	<div class="container">
@@ -162,7 +161,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k3.png" alt="WAIT">
+			<img id="clock_img" src="img/K3/k3-1.png" alt="WAIT">
 		</div>
 	</div>
 	<div class="container">
@@ -179,7 +178,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k4.png" alt="REPAIR">
+			<img id="paper_img" src="img/K4/K4-2.png" alt="REPAIR">
 		</div>
 	</div>
 	<div class="container">
@@ -301,13 +300,149 @@
 					img.style.width = targetW + 'px';
 					img.style.height = targetH + 'px';
 				});
+
+				console.log(" scatter img", i)
+				if (i == 8)
+				{
+					glueImg.src = "img/K2/k2-1.png";
+					initDrag();
+				}
 			});
 			cupImg.style.opacity = '0';
 			scattered = true;
-			glueImg.src = "img/K2/k2-1.png";
+
 		});
 
+		let isDragging = false;
+		let offsetX, offsetY;
+		let originalLeft, originalTop;
+		const originalParent = glueImg.parentElement;
+		const originalNextSibling = glueImg.nextSibling;
 
+		// 初始化绝对定位
+		function initDrag()
+		{
+
+			const rect = glueImg.getBoundingClientRect();
+			originalLeft = rect.left + window.scrollX;
+			originalTop = rect.top + window.scrollY;
+			glueImg.style.left = originalLeft + 'px';
+			glueImg.style.top = originalTop + 'px';
+			glueImg.style.position = 'absolute';
+			glueImg.style.cursor = 'move';
+			glueImg.style.zIndex = '1001';
+			document.body.appendChild(glueImg); // 移到 body 避免容器限制
+		}
+
+
+		glueImg.addEventListener('mousedown', (e) =>
+		{
+			isDragging = true;
+			const rect = glueImg.getBoundingClientRect();
+			offsetX = e.clientX - rect.left;
+			offsetY = e.clientY - rect.top;
+			glueImg.style.transition = 'none';
+			e.preventDefault();
+		});
+
+		document.addEventListener('mousemove', (e) =>
+		{
+			if (!isDragging) return;
+			glueImg.style.left = (e.clientX - offsetX) + 'px';
+			glueImg.style.top = (e.clientY - offsetY) + 'px';
+
+			const glueRect = glueImg.getBoundingClientRect();
+			let allHighlighted = true;
+
+			scatterImgs.forEach(img =>
+			{
+				if (!img.style.display || img.style.display === 'none')
+				{
+					allHighlighted = false;
+					return;
+				}
+				const scatterRect = img.getBoundingClientRect();
+				const overlapping = glueRect.right > scatterRect.left && glueRect.left < scatterRect.right &&
+					glueRect.bottom > scatterRect.top && glueRect.top < scatterRect.bottom;
+
+				if (overlapping && !img.dataset.highlighted)
+				{
+					img.style.outline = '3px solid gold';
+					img.style.outlineOffset = '-3px';
+					img.dataset.highlighted = 'true';
+				}
+				if (!img.dataset.highlighted) allHighlighted = false;
+			});
+
+			if (allHighlighted && scatterImgs.length > 0)
+			{
+				// 记录 glue_img 初始位置（已通过 originalLeft/originalTop 保存）
+				const targetX = originalLeft;
+				const targetY = originalTop;
+				const targetRect = glueImg.getBoundingClientRect(); // 用于初始尺寸
+				const targetW = targetRect.width;
+				const targetH = targetRect.height;
+
+				// 所有 scatter-img 飞回初始位置并消失
+				scatterImgs.forEach(img =>
+				{
+					if (!img.style.display || img.style.display === 'none') return;
+					img.style.transition = 'all 1s cubic-bezier(0.25,0.8,0.25,1)';
+					img.style.left = targetX + 'px';
+					img.style.top = targetY + 'px';
+					img.style.width = targetW + 'px';
+					img.style.height = targetH + 'px';
+					img.style.transform = 'rotate(0deg)';
+					img.style.opacity = '0';
+				});
+
+				// 1秒后清理
+				setTimeout(() =>
+				{
+					scatterImgs.forEach(img =>
+					{
+						img.style.display = 'none';
+						img.style.opacity = '';
+						img.style.transition = '';
+						img.style.left = '';
+						img.style.top = '';
+						img.style.width = '';
+						img.style.height = '';
+						img.style.transform = '';
+					});
+
+					// 同时恢复 glue_img
+					glueImg.style.transition = 'left 0.6s ease, top 0.6s ease';
+					glueImg.style.left = originalLeft + 'px';
+					glueImg.style.top = originalTop + 'px';
+					glueImg.src = 'img/K2/K2-3.png';
+
+					// 恢复 glue_img 到 DOM 原位
+					if (originalNextSibling)
+					{
+						originalParent.insertBefore(glueImg, originalNextSibling);
+					} else
+					{
+						originalParent.appendChild(glueImg);
+					}
+					glueImg.style.position = '';
+					glueImg.style.left = '';
+					glueImg.style.top = '';
+					glueImg.style.cursor = '';
+					glueImg.style.zIndex = '';
+					glueImg.style.transition = '';
+				}, 1000);
+
+				isDragging = false;
+			}
+		});
+
+		document.addEventListener('mouseup', () =>
+		{
+			isDragging = false;
+		});
+
+		window.addEventListener('resize', initDrag);
 	</script>
 </body>
 
