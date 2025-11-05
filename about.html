@@ -2,328 +2,498 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Where Broken Becomes Beautiful</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Where Broken Becomes Beautiful</title>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-    body {
-      height: 100%;
-      background: #d2ccb4;
-      font-family: 'Noto Serif JP', serif;
-      overflow: hidden;
-      color: #f8f5e9;
-      background-image: url('img/kg.jpg');
-      background-repeat: no-repeat;
-      /* 图片不重复 */
-      background-size: cover;
-      /* 图片覆盖整个背景区域，可能会裁剪 */
-      background-attachment: fixed;
-      /* 背景图片固定，不随滚动条滚动 */
-      background-position: center center;
-      
-      /* 图片居中显示 */
+		body {
+			height: 100%;
+			background: #d2ccb4;
+			font-family: 'Noto Serif JP', serif;
+			overflow: hidden;
+			color: #f8f5e9;
+			background-image: url('img/kg.jpg');
+			background-repeat: no-repeat;
+			/* 图片不重复 */
+			background-size: cover;
+			/* 图片覆盖整个背景区域，可能会裁剪 */
+			background-attachment: fixed;
+			/* 背景图片固定，不随滚动条滚动 */
+			background-position: center center;
 
-    }
-    body:before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 255, 215, 0.6);   /* 金黄色半透明 */
-      /* 可选：加一点渐变更艺术 */
-      /* background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,180,0,0.3)); */
-      z-index: 1;
-    }
+			/* 图片居中显示 */
 
-    .scene {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      overflow: hidden;
-    }
+		}
 
-    /* ========== 金粉粒子容器 ========== */
-    .gold-dust {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
+		body:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(255, 255, 215, 0.6);
+			/* 金黄色半透明 */
+			/* 可选：加一点渐变更艺术 */
+			/* background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,180,0,0.3)); */
+			z-index: 1;
+		}
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: #d4af37;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
-      opacity: 0;
-      animation: fall linear forwards;
-    }
+		.scene {
+			position: relative;
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 2rem;
+			overflow: hidden;
+		}
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 0;
-      }
+		/* ========== 金粉粒子容器 ========== */
+		.gold-dust {
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+			z-index: 1;
+		}
 
-      10% {
-        opacity: 1;
-      }
+		.particle {
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			background: #d4af37;
+			border-radius: 50%;
+			box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+			opacity: 0;
+			animation: fall linear forwards;
+		}
 
-      90% {
-        opacity: 1;
-      }
+		@keyframes fall {
+			0% {
+				transform: translateY(-100px) rotate(0deg);
+				opacity: 0;
+			}
 
-      100% {
-        transform: translateY(calc(100vh + 100px)) rotate(720deg);
-        opacity: 0;
-      }
-    }
+			10% {
+				opacity: 1;
+			}
 
-    /* ========== 裂纹动画 ========== */
-    .cracks {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
+			90% {
+				opacity: 1;
+			}
 
-    .gold-line {
-      fill: none;
-      stroke: #d4af37;
-      stroke-width: 30;
-      stroke-linecap: round;
-      opacity: 0;
-      transform-origin: center;
-      animation: crackOut 2.2s cubic-bezier(.2, .8, .2, 1) forwards;
-    }
+			100% {
+				transform: translateY(calc(100vh + 100px)) rotate(720deg);
+				opacity: 0;
+			}
+		}
 
-    @keyframes crackOut {
-      0% {
-        stroke-dasharray: 0 500;
-        opacity: 1;
-        transform: scale(0.1);
-      }
+		/* ========== 裂纹动画 ========== */
+		.cracks {
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+			z-index: 5;
+		}
 
-      70% {
-        stroke-dasharray: 500 0;
-        opacity: 1;
-        transform: scale(1);
-      }
+		.gold-line {
+			fill: none;
+			stroke: #d4af37;
+			stroke-width: 30;
+			stroke-linecap: round;
+			opacity: 0;
+			transform-origin: center;
+			animation: crackOut 2.2s cubic-bezier(.2, .8, .2, 1) forwards;
+		}
 
-      100% {
-        stroke-dasharray: 500 0;
-        opacity: 0;
-        transform: scale(1.3);
-      }
-    }
+		@keyframes crackOut {
+			0% {
+				stroke-dasharray: 0 500;
+				opacity: 1;
+				transform: scale(0.1);
+			}
 
-    /* ========== 文字书写系统 ========== */
-    .text-container {
-      max-width: 780px;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 1s 2.4s forwards;
-      z-index: 3;
-    }
+			70% {
+				stroke-dasharray: 500 0;
+				opacity: 1;
+				transform: scale(1);
+			}
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
+			100% {
+				stroke-dasharray: 500 0;
+				opacity: 0;
+				transform: scale(1.3);
+			}
+		}
 
-    .line {
-      display: block;
-      margin: 1.8rem 0;
-      font-size: 1.35rem;
-      line-height: 1.9;
-      color: #333;
-      position: relative;
-      overflow: hidden;
-    }
+		/* ========== 文字书写系统 ========== */
+		.text-container {
+			max-width: 780px;
+			text-align: center;
+			opacity: 0;
+			animation: fadeIn 1s 2.4s forwards;
+			z-index: 3;
+		}
 
-    .line strong {
-      display: block;
-      font-size: 2rem;
-      color: #d4af37;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
+		@keyframes fadeIn {
+			to {
+				opacity: 1;
+			}
+		}
 
-    .char {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: writeIn 0.6s forwards;
-      animation-delay: calc(var(--delay) * 0.08s);
-    }
+		.line {
+			display: block;
+			margin: 1.8rem 0;
+			font-size: 1.35rem;
+			line-height: 1.9;
+			color: #333;
+			position: relative;
+			overflow: hidden;
+		}
 
-    @keyframes writeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+		.line strong {
+			display: block;
+			font-size: 2rem;
+			color: #d4af37;
+			margin-bottom: 1rem;
+			font-weight: 700;
+		}
 
-    /* ========== 导航栏 ========== */
-    .nav-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, .15);
-      backdrop-filter: blur(12px);
-      padding: 16px 0;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      font-size: 14px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, .9);
-      z-index: 10;
-      opacity: 0;
-      animation: navIn 1s 5s forwards;
-    }
+		.char {
+			display: inline-block;
+			opacity: 0;
+			transform: translateY(20px);
+			animation: writeIn 0.6s forwards;
+			animation-delay: calc(var(--delay) * 0.08s);
+		}
 
-    @keyframes navIn {
-      to {
-        opacity: 1;
-      }
-    }
+		@keyframes writeIn {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 
-    .nav-item {
-      color: #b38b4d;
-      font-size: 22px;
-      font-family: Georgia, serif;
-      text-decoration: none;
-      transition: color .3s;
-    }
+		/* ========== 导航栏 ========== */
+		.nav-bar {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background: rgba(255, 255, 255, .15);
+			backdrop-filter: blur(12px);
+			padding: 16px 0;
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+			font-size: 14px;
+			font-weight: 500;
+			color: rgba(255, 255, 255, .9);
+			z-index: 10;
+			opacity: 0;
+			animation: navIn 1s 5s forwards;
+		}
 
-    .nav-item:hover {
-      color: #fff;
-    }
+		@keyframes navIn {
+			to {
+				opacity: 1;
+			}
+		}
 
-    /* ========== 响应式 ========== */
-    @media (max-width: 768px) {
-      .line {
-        font-size: 1.15rem;
-        margin: 1.4rem 0;
-      }
+		.nav-item {
+			color: #b38b4d;
+			font-size: 22px;
+			font-family: Georgia, serif;
+			text-decoration: none;
+			transition: color .3s;
+		}
 
-      .line strong {
-        font-size: 1.7rem;
-      }
+		.nav-item:hover {
+			color: #fff;
+		}
 
-      .nav-bar {
-        gap: 20px;
-      }
+		/* ========== 响应式 ========== */
+		@media (max-width: 768px) {
+			.line {
+				font-size: 1.15rem;
+				margin: 1.4rem 0;
+			}
 
-      .nav-item {
-        font-size: 18px;
-      }
-    }
-  </style>
+			.line strong {
+				font-size: 1.7rem;
+			}
+
+			.nav-bar {
+				gap: 20px;
+			}
+
+			.nav-item {
+				font-size: 18px;
+			}
+		}
+
+		/* ========== 标题 + K 裂纹同行 ========== */
+		.header-line {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 24px;
+			margin-top: 100px;
+			opacity: 0;
+			animation: headerFadeIn 2s 3.3s forwards;
+		}
+
+		@keyframes headerFadeIn {
+			to {
+				opacity: 1;
+			}
+		}
+
+		.main-title {
+			font-size: 3.8rem;
+			font-weight: 700;
+			font-family: Georgia, serif;
+			color: #d4af37;
+			text-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+			white-space: nowrap;
+			animation: titleGlow 3s 3.3s infinite alternate;
+		}
+
+		@keyframes titleGlow {
+			0% {
+				text-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+			}
+
+			100% {
+				text-shadow: 0 0 55px rgba(255, 215, 0, 1), 0 0 80px rgba(212, 175, 55, 0.7);
+			}
+		}
+
+		.k-crack-inline {
+			width: 120px;
+			height: 120px;
+			opacity: 0;
+			animation: crackIn 0.1s 3.4s forwards;
+		}
+
+		@keyframes crackIn {
+			to {
+				opacity: 1;
+			}
+		}
+
+		.k-path {
+			fill: none;
+			stroke: #d4af37;
+			stroke-width: 12;
+			stroke-linecap: round;
+			stroke-dasharray: 1000;
+			stroke-dashoffset: 1000;
+			filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.9));
+			animation: drawK 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 3.5s forwards;
+		}
+
+		/* ========== 悬浮金粉脱落 ========== */
+		.char:hover {
+			color: #b38b4d !important;
+			animation: shake 0.4s;
+		}
+
+		@keyframes shake {
+
+			0%,
+			100% {
+				transform: translateY(0) rotate(0);
+			}
+
+			25% {
+				transform: translateY(-3px) rotate(-2deg);
+			}
+
+			75% {
+				transform: translateY(-1px) rotate(1deg);
+			}
+		}
+
+		.powder {
+			position: absolute;
+			width: 3px;
+			height: 3px;
+			background: #d4af37;
+			border-radius: 50%;
+			pointer-events: none;
+			opacity: 1;
+			box-shadow: 0 0 7px rgba(212, 175, 55, 0.9);
+			animation: powderFall 1.3s linear forwards;
+		}
+
+		@keyframes powderFall {
+			0% {
+				transform: translateY(0) scale(1);
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(70px) scale(0);
+				opacity: 0;
+			}
+		}
+	</style>
 </head>
 
 <body>
 
-  <div class="scene">
+	<div class="scene">
 
-    <!-- 金粉粒子容器 -->
-    <div class="gold-dust" id="goldDust"></div>
+		<div class="header-line">
+			<h1 class="main-title">Kintsugi Studio</h1>
+			<div class="k-crack-inline">
+				<svg viewBox="0 0 380 380" preserveAspectRatio="xMidYMid meet">
+					<path class="k-path" d="
+            M190,100 L190,280 
+            M190,190 L140,140 
+            M190,190 L140,240 
+            M190,190 L240,140 
+            M190,190 L240,240
+          " />
+				</svg>
+			</div>
+		</div>
+		<!-- 金粉粒子容器 -->
+		<div class="gold-dust" id="goldDust"></div>
 
-    <!-- 裂纹 -->
-    <svg class="cracks" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
-      <path class="gold-line" d="M200 200 Q120 80 50 150" />
-      <path class="gold-line" d="M200 200 Q280 90 340 180" />
-      <path class="gold-line" d="M200 200 Q100 300 30 340" />
-    </svg>
 
-    <!-- 文字容器 -->
-    <div class="text-container">
-      <div class="line">
-        <strong data-text="Where Broken Becomes Beautiful">Where Broken Becomes Beautiful</strong>
-      </div>
-      <div class="line"
-        data-text="At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit room in New Brunswick.">
-        At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit
-        room in New Brunswick.
-      </div>
-      <div class="line"
-        data-text="Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,">
-        Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,
-      </div>
-      <div class="line"
-        data-text="and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more alive, more you.">
-        and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more
-        alive, more you.
-      </div>
-    </div>
+		<!-- 裂纹 -->
+		<svg class="cracks" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+			<path class="gold-line" d="M200 200 Q120 80 50 150" />
+			<path class="gold-line" d="M200 200 Q280 90 340 180" />
+			<path class="gold-line" d="M200 200 Q100 300 30 340" />
+		</svg>
+		<strong data-text="Where Broken Becomes Beautiful">Where Broken Becomes Beautiful</strong>
+		<!-- 文字容器 -->
+		<div class="text-container">
+			<div class="line">
+				<strong data-text="Where Broken Becomes Beautiful">Where Broken Becomes Beautiful</strong>
+			</div>
+			<div class="line"
+				data-text="At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit room in New Brunswick.">
+				At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet,
+				sun-lit
+				room in New Brunswick.
+			</div>
+			<div class="line"
+				data-text="Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,">
+				Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,
+			</div>
+			<div class="line"
+				data-text="and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more alive, more you.">
+				and together you will repair what was broken — not to make it “as good as new,” but to make it more
+				honest, more
+				alive, more you.
+			</div>
+		</div>
 
-    <!-- 导航 -->
-    <nav class="nav-bar">
-      <a href="index.html" class="nav-item">Home</a>
-      <a href="process.html" class="nav-item">Process</a>
-      <a href="history&story.html" class="nav-item">History</a>
-      <a href="about.html" class="nav-item">About</a>
-    </nav>
+		<!-- 导航 -->
+		<nav class="nav-bar">
+			<a href="index.html" class="nav-item">Home</a>
+			<a href="process.html" class="nav-item">Process</a>
+			<a href="history&story.html" class="nav-item">History</a>
+			<a href="about.html" class="nav-item">About</a>
+		</nav>
 
-  </div>
+	</div>
 
-  <script>
-    // ========== 逐字书写动画 ==========
-    document.querySelectorAll('.line').forEach((line, lineIndex) => {
-      const text = line.getAttribute('data-text') || line.textContent;
-      line.innerHTML = '';
-      text.split('').forEach((char, i) => {
-        const span = document.createElement('span');
-        span.className = 'char';
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.setProperty('--delay', lineIndex * 12 + i);
-        line.appendChild(span);
-      });
-    });
+	<script>
+		// ========== 逐字书写动画 ==========
+		document.querySelectorAll('.line').forEach((line, lineIndex) =>
+		{
+			const text = line.getAttribute('data-text') || line.textContent;
+			line.innerHTML = '';
+			text.split('').forEach((char, i) =>
+			{
+				const span = document.createElement('span');
+				span.className = 'char';
+				span.textContent = char === ' ' ? '\u00A0' : char;
+				span.style.setProperty('--delay', lineIndex * 12 + i);
+				line.appendChild(span);
+			});
+		});
 
-    // ========== 金粉飘落粒子系统 ==========
-    const dustContainer = document.getElementById('goldDust');
-    const particleCount = 60; // 可增减
+		// ========== 金粉飘落粒子系统 ==========
+		const dustContainer = document.getElementById('goldDust');
+		const particleCount = 60; // 可增减
 
-    function createParticle() {
-      const p = document.createElement('div');
-      p.className = 'particle';
+		function createParticle()
+		{
+			const p = document.createElement('div');
+			p.className = 'particle';
 
-      // 随机位置
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDuration = (Math.random() * 8 + 6) + 's'; // 6~14秒
-      p.style.animationDelay = Math.random() * 5 + 's';
+			// 随机位置
+			p.style.left = Math.random() * 100 + 'vw';
+			p.style.animationDuration = (Math.random() * 8 + 6) + 's'; // 6~14秒
+			p.style.animationDelay = Math.random() * 5 + 's';
 
-      dustContainer.appendChild(p);
+			dustContainer.appendChild(p);
 
-      // 移除旧粒子
-      p.addEventListener('animationend', () => p.remove());
-    }
+			// 移除旧粒子
+			p.addEventListener('animationend', () => p.remove());
+		}
 
-    // 启动粒子
-    setInterval(createParticle, 300); // 每0.3秒一个
+		// 启动粒子
+		setInterval(createParticle, 300); // 每0.3秒一个
 
-    // 页面加载后立即开始
-    for (let i = 0; i < particleCount; i++) {
-      setTimeout(createParticle, i * 100);
-    }
-  </script>
+		// 页面加载后立即开始
+		for (let i = 0; i < particleCount; i++)
+		{
+			setTimeout(createParticle, i * 100);
+		}
+
+		// ========== 逐字书写 + 金粉脱落 ==========
+		document.querySelectorAll('[data-text]').forEach((el, lineIndex) =>
+		{
+			const text = el.getAttribute('data-text');
+			console.log(" dff" + text)
+			el.innerHTML = '';
+			text.split('').forEach((char, i) =>
+			{
+				const span = document.createElement('span');
+				span.className = 'char';
+				span.textContent = char === ' ' ? '\u00A0' : char;
+				span.style.setProperty('--delay', lineIndex * 16 + i);
+
+				span.addEventListener('mouseenter', (e) =>
+				{
+					const rect = span.getBoundingClientRect();
+					const centerX = rect.left + rect.width / 2;
+					const centerY = rect.top + rect.height / 2;
+
+					for (let j = 0; j < 9; j++)
+					{
+						const p = document.createElement('div');
+						p.className = 'powder';
+						const angle = Math.random() * Math.PI * 2;
+						const force = Math.random() * 20 + 10;
+						p.style.left = centerX + Math.cos(angle) * force + 'px';
+						p.style.top = centerY + Math.sin(angle) * force + 'px';
+						p.style.animationDelay = j * 0.05 + 's';
+						document.body.appendChild(p);
+						setTimeout(() => p.remove(), 1300);
+					}
+				});
+
+				el.appendChild(span);
+			});
+		});
+	</script>
 
 </body>
 
