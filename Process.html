@@ -5,6 +5,117 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Process</title>
+	<style>
+		.kintsugi.defination {
+			font-size: 16px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		body {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			line-height: 1.6;
+			color: #333;
+			background: #d2ccb4;
+			margin: 0;
+			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			overflow: hidden;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 1.5rem;
+			color: #b38b4d;
+		}
+
+		h2 {
+			font-size: 1.4rem;
+			margin: 1.8rem 0 .6rem;
+			color: #5d4037;
+			padding-bottom: .3rem;
+		}
+
+		.container {
+			display: flex;
+			align-items: center;
+			max-width: 900px;
+			width: 70%;
+			padding: 30px;
+			gap: 30px;
+			margin: 0 auto;
+		}
+
+		.text {
+			flex: 1;
+			font-size: 18px;
+			line-height: 1.8;
+			color: #333;
+		}
+
+		.text h2 {
+			margin-top: 0;
+			color: #b38b4d;
+			font-family: Georgia, serif;
+		}
+
+		.image {
+			flex: 1;
+			text-align: center;
+			position: relative;
+		}
+
+		.image img {
+			width: 100%;
+			max-width: 350px;
+			height: auto;
+			border-radius: 12px;
+			cursor: pointer;
+		}
+
+		.middle_line {
+			width: 1px;
+			background: #5d4037;
+		}
+
+		.nav-bar {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			padding: 14px 0;
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+			color: rgba(255, 255, 255, 0.9);
+			font-size: 13px;
+			font-weight: 500;
+			z-index: 1000;
+			user-select: none;
+		}
+
+		.nav-item {
+			color: #b38b4d;
+			font-size: 22px;
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			cursor: pointer;
+		}
+
+		.scatter-img {
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+			transition: all 3s cubic-bezier(0.25, 0.8, 0.25, 1);
+			display: none;
+			z-index: 9;
+		}
+	</style>
+</head>
 
 <body>
 	<div>
@@ -12,16 +123,12 @@
 	</div>
 	<div class="kintsugi defination">
 		The kintsugi process is the Japanese art of repairing broken pottery with lacquer and powdered metal, such as
-		gold
-		or silver. The visible repair highlights, rather than hides, the item's history and imperfections. This
-		practice,
-		which can be done through traditional or modern methods, reflects the philosophy of wabi-sabi, which embraces
-		imperfection and transience.
+		gold or silver. The visible repair highlights, rather than hides, the item's history and imperfections. This
+		practice, which can be done through traditional or modern methods, reflects the philosophy of wabi-sabi, which
+		embraces imperfection and transience.
 	</div>
 
-
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>BREAK</h2>
 			<p>Lay out pieces on a padded surface; identify which edges mate. Remove dust, old glue, or dirt with warm
@@ -29,17 +136,12 @@
 			<P>Dry-fit the pieces without adhesive to check alignment and any missing areas. Note gaps that will need
 				fill.</P>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/cup.png" alt="BREAK">
+			<img id="cup_img" src="img/cup.png" alt="BREAK">
 		</div>
 	</div>
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>ASSEMBLE</h2>
 			<p>Make joining lacquer: if using raw urushi, you may use it directly for joining. For larger gaps, mix
@@ -47,33 +149,23 @@
 			<p>First join: apply a thin, even coat of lacquer to mating edges. Press pieces together, align precisely,
 				and secure with gentle clamps or tape. Wipe away any squeeze-out with a clean stick before it cures.</p>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k2.png" alt="ASSEMBLE">
+			<img id="glue_img" src="img/K2/k2-2.png" alt="ASSEMBLE">
 		</div>
 	</div>
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>WAIT</h2>
 			<p>Let the join cure fully in a humid, dust-free environment — allow sufficient curing time for the lacquer
 				to harden fully before proceeding (Environmental humidity and lacquer type affect curing).</p>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
 			<img src="img/k3.png" alt="WAIT">
 		</div>
 	</div>
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>REPAIR</h2>
 			<P>Fill missing areas: mix thicker lacquer paste to rebuild chips or missing sections. Sculpt the fill to
@@ -85,50 +177,34 @@
 			<p>Sand the filled areas smooth, stepping through finer grits to blend with the original ceramic surface.
 			</p>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
 			<img src="img/k4.png" alt="REPAIR">
 		</div>
 	</div>
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>REVEAL</h2>
 			<p>While the final lacquer is still tacky (or by using a special adhesive called nashiji process), dust
 				powdered gold lightly into the lacquer or lay gold leaf. Tap off excess gently. For brighter seams,
 				repeat gilding layers as desired.</p>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k5.png" alt="
-            REVEAL">
+			<img src="img/k5.png" alt="REVEAL">
 		</div>
 	</div>
 	<div class="container">
-		<!-- 左边：文字 -->
 		<div class="text">
 			<h2>SUBLIMATE</h2>
 			<p>After the metallic layer has set, polish gently. Optionally brush a thin clear topcoat of epoxy or
 				lacquer.</p>
 		</div>
-		<div class="middle_line">
-
-		</div>
-
-		<!-- 右边：图片 -->
+		<div class="middle_line"></div>
 		<div class="image">
 			<img src="img/k6.png" alt="SUBLIMATE">
 		</div>
 	</div>
-
 
 	<div class="nav-bar">
 		<a href="index.html" class="nav-item">Home</a>
@@ -136,181 +212,103 @@
 		<a href="history&story.html" class="nav-item">History</a>
 		<a href="about.html" class="nav-item">About</a>
 	</div>
+
+	<script>
+		const cupImg = document.getElementById('cup_img');
+		const glueImg = document.getElementById('glue_img');
+
+		let scatterImgs = [];
+		let scattered = false;
+		const targetW = 150, targetH = 150, margin = 30;
+
+		// 加载 img/cup/1.png 到 9.png
+		for (let i = 1; i <= 9; i++)
+		{
+			const img = new Image();
+			img.src = `img/cup/${i}.png`;
+			img.className = 'scatter-img';
+			document.body.appendChild(img);
+			scatterImgs.push(img);
+		}
+
+		// 生成不重叠的边缘位置
+		function generateEdgePositions()
+		{
+			const positions = [];
+			const vw = window.innerWidth, vh = window.innerHeight;
+			const cells = [];
+
+			// 上边缘
+			for (let x = margin; x < vw - targetW - margin; x += targetW + margin)
+			{
+				cells.push({ x, y: margin, side: 0 });
+			}
+			// 右边缘
+			for (let y = margin; y < vh - targetH - margin; y += targetH + margin)
+			{
+				cells.push({ x: vw - targetW - margin, y, side: 1 });
+			}
+			// 下边缘
+			for (let x = margin; x < vw - targetW - margin; x += targetW + margin)
+			{
+				cells.push({ x, y: vh - targetH - margin, side: 2 });
+			}
+			// 左边缘
+			for (let y = margin; y < vh - targetH - margin; y += targetH + margin)
+			{
+				cells.push({ x: margin, y, side: 3 });
+			}
+
+			// 随机打乱
+			for (let i = cells.length - 1; i > 0; i--)
+			{
+				const j = Math.floor(Math.random() * (i + 1));
+				[cells[i], cells[j]] = [cells[j], cells[i]];
+			}
+
+			// 取前 N 个
+			for (let i = 0; i < scatterImgs.length; i++)
+			{
+				const angle = Math.random() * 360;
+				const duration = 2.5 + Math.random() * 0.8; // 2.5-3.3s
+				positions.push({ x: cells[i].x, y: cells[i].y, angle, duration });
+			}
+			return positions;
+		}
+
+		cupImg.addEventListener('mouseenter', () =>
+		{
+			if (scattered) return;
+			const rect = cupImg.getBoundingClientRect();
+			const positions = generateEdgePositions();
+
+			scatterImgs.forEach((img, i) =>
+			{
+				img.style.display = 'block';
+				document.body.appendChild(img);
+				img.style.left = (rect.left + window.scrollX) + 'px';
+				img.style.top = (rect.top + window.scrollY) + 'px';
+				img.style.width = rect.width + 'px';
+				img.style.height = rect.height + 'px';
+
+				requestAnimationFrame(() =>
+				{
+					const pos = positions[i];
+					img.style.transition = `all ${pos.duration}s cubic-bezier(0.25,0.8,0.25,1)`;
+					img.style.left = pos.x + 'px';
+					img.style.top = pos.y + 'px';
+					img.style.transform = `rotate(${pos.angle}deg)`;
+					img.style.width = targetW + 'px';
+					img.style.height = targetH + 'px';
+				});
+			});
+			cupImg.style.opacity = '0';
+			scattered = true;
+			glueImg.src = "img/K2/k2-1.png";
+		});
+
+
+	</script>
 </body>
 
-<style>
-	.kintsugi defination {
-		font-size: 16;
-		font-family: Arial, Helvetica, sans-serif;
-	}
-
-	body {
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		line-height: 1.6;
-		color: #333;
-		background: #d2ccb4;
-		margin: 0;
-		padding: 2rem;
-		display: flex;
-		flex-direction: column;
-	}
-
-	h1 {
-		text-align: center;
-		margin-bottom: 1.5rem;
-		color: #b38b4d;
-		/* gold-ish */
-	}
-
-	/* ---- Section headings ---- */
-	h2 {
-		font-size: 1.4rem;
-		margin: 1.8rem 0 .6rem;
-		color: #5d4037;
-		/* deep brown */
-
-		padding-bottom: .3rem;
-	}
-
-	.responsive-img {
-		width: 100%;
-		height: auto;
-		max-width: 500px;
-	}
-
-	/* ---- Lists ---- */
-	ol,
-	ul {
-		padding-left: 1.4rem;
-	}
-
-	li {
-		margin-bottom: .6rem;
-	}
-
-	ul li {
-		list-style-type: disc;
-	}
-
-	ol {
-		counter-reset: step;
-	}
-
-	ol>li {
-		position: relative;
-		counter-increment: step;
-		list-style: none;
-		padding-left: 2rem;
-	}
-
-	ol>li::before {
-		content: counter(step) ".";
-		position: absolute;
-		left: 0;
-		font-weight: bold;
-		color: #b38b4d;
-	}
-
-	/* ---- Nested lists ---- */
-	ol>li>ul {
-		margin-top: .4rem;
-		padding-left: 1.2rem;
-	}
-
-	ol>li>ul li {
-		list-style-type: circle;
-	}
-
-	/* ---- Emphasis ---- */
-	em {
-		font-style: italic;
-		color: #8d6e63;
-	}
-
-	/* ---- Responsive ---- */
-	@media (max-width: 500px) {
-		.container {
-			padding: 1rem;
-		}
-
-		h1 {
-			font-size: 1.6rem;
-		}
-	}
-
-	.nav-bar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		background: rgba(255, 255, 255, 0.15);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		padding: 14px 0;
-		display: flex;
-		justify-content: center;
-		gap: 40px;
-		color: rgba(255, 255, 255, 0.9);
-		font-size: 13px;
-		font-weight: 500;
-		z-index: 1000;
-		animation: float 3s ease-in-out infinite;
-		/* 完全透明交互 */
-		user-select: none;
-	}
-
-	.nav-item {
-
-		color: #b38b4d;
-		font-size: 22px;
-		font-family: Georgia, 'Times New Roman', Times, serif;
-		cursor: pointer;
-	}
-
-	.container {
-		display: flex;
-		align-items: center;
-		max-width: 900px;
-		width: 70%;
-		padding: 30px;
-		gap: 30px;
-		align-items: stretch;
-		flex: 1;
-		margin: 0 auto;
-
-	}
-
-	/* 文字区域 */
-	.text {
-		flex: 1;
-		font-size: 18px;
-		line-height: 1.8;
-		color: #333;
-	}
-
-	.text h2 {
-		margin-top: 0;
-		color: #b38b4d;
-		font-family: Georgia, serif;
-	}
-
-	/* 图片区域 */
-	.image {
-		flex: 1;
-		text-align: center;
-	}
-
-	.image img {
-		width: 100%;
-		max-width: 350px;
-		height: auto;
-		border-radius: 12px;
-
-	}
-
-	.middle_line {
-		width: 1px;
-		background: #5d4037;
-
-	}
-</style>
+</html>
