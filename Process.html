@@ -190,7 +190,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img src="img/k5.png" alt="REVEAL">
+			<img id="brush_img" src="img/K5/k5-1.png" alt="REVEAL">
 		</div>
 	</div>
 	<div class="container">
@@ -215,6 +215,9 @@
 	<script>
 		const cupImg = document.getElementById('cup_img');
 		const glueImg = document.getElementById('glue_img');
+		const clockImg = document.getElementById('clock_img');
+		const paperImg = document.getElementById('paper_img');
+		const brushImg = document.getElementById('brush_img');
 
 		let scatterImgs = [];
 		let scattered = false;
@@ -417,6 +420,7 @@
 					glueImg.style.top = originalTop + 'px';
 					glueImg.src = 'img/K2/K2-3.png';
 
+
 					// 恢复 glue_img 到 DOM 原位
 					if (originalNextSibling)
 					{
@@ -431,6 +435,116 @@
 					glueImg.style.cursor = '';
 					glueImg.style.zIndex = '';
 					glueImg.style.transition = '';
+
+
+					//
+					if (clockImg)
+					{
+						const rect = clockImg.getBoundingClientRect();
+						const left = rect.left + window.scrollX;
+						const top = rect.top + window.scrollY;
+
+						// 创建 K3-2
+						const k32 = new Image();
+						k32.src = 'img/K3/K3-2.png';
+						k32.style.position = 'absolute';
+						k32.style.left = left + 'px';
+						k32.style.top = top + 'px';
+						k32.style.width = rect.width + 'px';
+						k32.style.height = rect.height + 'px';
+						k32.style.zIndex = '10';
+						k32.style.border = '2px solid red';
+						k32.style.transition = 'transform 15s linear';
+						document.body.appendChild(k32);
+
+						// 创建 K3-3
+						const k33 = new Image();
+						k33.src = 'img/K3/K3-3.png';
+						k33.style.position = 'absolute';
+						k33.style.left = left + 'px';
+						k33.style.top = top + 'px';
+						k33.style.width = rect.width + 'px';
+						k33.style.height = rect.height + 'px';
+						k33.style.zIndex = '10';
+						document.body.appendChild(k33);
+
+						// 旋转
+						requestAnimationFrame(() =>
+						{
+							k32.style.transform = 'rotate(360deg)';
+						});
+
+						k32.addEventListener('transitionend', () =>
+						{
+							// paper_img 是 REPAIR 步骤图片
+							paper_img.src = 'img/K4/k4-1.png';
+
+							// 创建遮罩区域 (120%)
+							const rect = paper_img.getBoundingClientRect();
+							const centerX = rect.left + rect.width / 2 + window.scrollX;
+							const centerY = rect.top + rect.height / 2 + window.scrollY;
+							const size = rect.width * 1.2;
+
+							const maskArea = {
+								x: centerX - size / 2,
+								y: centerY - size / 2,
+								width: size,
+								height: size
+							};
+
+							// 创建 k4-4.png
+							const k44 = new Image();
+							k44.src = 'img/K4/k4-3.png';
+							k44.style.position = 'absolute';
+							k44.style.left = maskArea.x + 'px';
+							k44.style.top = maskArea.y + 'px';
+							k44.style.width = maskArea.width + 'px';
+							k44.style.height = maskArea.height + 'px';
+							k44.style.cursor = 'move';
+							k44.style.zIndex = '1002';
+							document.body.appendChild(k44);
+
+							let isDragging4 = false;
+							let startX, startY;
+
+							k44.addEventListener('mousedown', (e) =>
+							{
+								isDragging4 = true;
+								startX = k44.offsetLeft;
+								startY = k44.offsetTop;
+								const mouseX = e.clientX + window.scrollX;
+								const mouseY = e.clientY + window.scrollY;
+								k44.dataset.offsetX = mouseX - startX;
+								k44.dataset.offsetY = mouseY - startY;
+								e.preventDefault();
+							});
+
+							document.addEventListener('mousemove', (e) =>
+							{
+								if (!isDragging4) return;
+								const mouseX = e.clientX + window.scrollX;
+								const mouseY = e.clientY + window.scrollY;
+								k44.style.left = (mouseX - parseFloat(k44.dataset.offsetX)) + 'px';
+								k44.style.top = (mouseY - parseFloat(k44.dataset.offsetY)) + 'px';
+
+								const dist = Math.sqrt(
+									Math.pow(k44.offsetLeft - startX, 2) +
+									Math.pow(k44.offsetTop - startY, 2)
+								);
+								if (dist > 756)
+								{  // 20cm ≈ 756px
+									paper_img.src = 'img/k4.png';
+									k44.remove();
+								}
+							});
+
+							document.addEventListener('mouseup', () =>
+							{
+								isDragging4 = false;
+							});
+
+						});
+					}
 				}, 1000);
 
 				isDragging = false;
