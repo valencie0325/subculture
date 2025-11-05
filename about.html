@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Where Broken Becomes Beautiful</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    body, html {
+    body {
       height: 100%;
       background: #d2ccb4;
       font-family: 'Noto Serif JP', serif;
       overflow: hidden;
       color: #f8f5e9;
+      background-image: url('img/kg.jpg');
+      background-repeat: no-repeat;
+      /* 图片不重复 */
+      background-size: cover;
+      /* 图片覆盖整个背景区域，可能会裁剪 */
+      background-attachment: fixed;
+      /* 背景图片固定，不随滚动条滚动 */
+      background-position: center center;
+      
+      /* 图片居中显示 */
+
+    }
+    body:before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 215, 0.6);   /* 金黄色半透明 */
+      /* 可选：加一点渐变更艺术 */
+      /* background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,180,0,0.3)); */
+      z-index: 1;
     }
 
     .scene {
@@ -52,12 +77,15 @@
         transform: translateY(-100px) rotate(0deg);
         opacity: 0;
       }
+
       10% {
         opacity: 1;
       }
+
       90% {
         opacity: 1;
       }
+
       100% {
         transform: translateY(calc(100vh + 100px)) rotate(720deg);
         opacity: 0;
@@ -79,13 +107,27 @@
       stroke-linecap: round;
       opacity: 0;
       transform-origin: center;
-      animation: crackOut 2.2s cubic-bezier(.2,.8,.2,1) forwards;
+      animation: crackOut 2.2s cubic-bezier(.2, .8, .2, 1) forwards;
     }
 
     @keyframes crackOut {
-      0%   { stroke-dasharray: 0 500; opacity: 1; transform: scale(0.1); }
-      70%  { stroke-dasharray: 500 0; opacity: 1; transform: scale(1); }
-      100% { stroke-dasharray: 500 0; opacity: 0; transform: scale(1.3); }
+      0% {
+        stroke-dasharray: 0 500;
+        opacity: 1;
+        transform: scale(0.1);
+      }
+
+      70% {
+        stroke-dasharray: 500 0;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        stroke-dasharray: 500 0;
+        opacity: 0;
+        transform: scale(1.3);
+      }
     }
 
     /* ========== 文字书写系统 ========== */
@@ -98,7 +140,9 @@
     }
 
     @keyframes fadeIn {
-      to { opacity: 1; }
+      to {
+        opacity: 1;
+      }
     }
 
     .line {
@@ -140,7 +184,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: rgba(255,255,255,.15);
+      background: rgba(255, 255, 255, .15);
       backdrop-filter: blur(12px);
       padding: 16px 0;
       display: flex;
@@ -148,14 +192,16 @@
       gap: 40px;
       font-size: 14px;
       font-weight: 500;
-      color: rgba(255,255,255,.9);
+      color: rgba(255, 255, 255, .9);
       z-index: 10;
       opacity: 0;
       animation: navIn 1s 5s forwards;
     }
 
     @keyframes navIn {
-      to { opacity: 1; }
+      to {
+        opacity: 1;
+      }
     }
 
     .nav-item {
@@ -172,13 +218,26 @@
 
     /* ========== 响应式 ========== */
     @media (max-width: 768px) {
-      .line { font-size: 1.15rem; margin: 1.4rem 0; }
-      .line strong { font-size: 1.7rem; }
-      .nav-bar { gap: 20px; }
-      .nav-item { font-size: 18px; }
+      .line {
+        font-size: 1.15rem;
+        margin: 1.4rem 0;
+      }
+
+      .line strong {
+        font-size: 1.7rem;
+      }
+
+      .nav-bar {
+        gap: 20px;
+      }
+
+      .nav-item {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="scene">
@@ -198,14 +257,19 @@
       <div class="line">
         <strong data-text="Where Broken Becomes Beautiful">Where Broken Becomes Beautiful</strong>
       </div>
-      <div class="line" data-text="At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit room in New Brunswick.">
-        At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit room in New Brunswick.
+      <div class="line"
+        data-text="At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit room in New Brunswick.">
+        At Kintsugi Studio, every broken bowl, every shattered plate, every chipped cup is invited to a quiet, sun-lit
+        room in New Brunswick.
       </div>
-      <div class="line" data-text="Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,">
+      <div class="line"
+        data-text="Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,">
         Here, under soft light and the gentle hum of lacquer, you will sit with strangers who become friends,
       </div>
-      <div class="line" data-text="and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more alive, more you.">
-        and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more alive, more you.
+      <div class="line"
+        data-text="and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more alive, more you.">
+        and together you will repair what was broken — not to make it “as good as new,” but to make it more honest, more
+        alive, more you.
       </div>
     </div>
 
@@ -262,4 +326,5 @@
   </script>
 
 </body>
+
 </html>
