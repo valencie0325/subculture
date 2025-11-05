@@ -32,7 +32,7 @@
 
 		}
 
-		body:before {
+		/* body:before {
 			content: "";
 			position: absolute;
 			top: 0;
@@ -40,11 +40,8 @@
 			right: 0;
 			bottom: 0;
 			background: rgba(255, 255, 215, 0.6);
-			/* 金黄色半透明 */
-			/* 可选：加一点渐变更艺术 */
-			/* background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,180,0,0.3)); */
-			z-index: 1;
-		}
+		z-index: 1;
+		}*/
 
 		.scene {
 			position: relative;
@@ -247,7 +244,7 @@
 			align-items: center;
 			justify-content: center;
 			gap: 24px;
-			margin-top: 100px;
+			margin-top: -600px;
 			opacity: 0;
 			animation: headerFadeIn 2s 3.3s forwards;
 		}
@@ -259,13 +256,14 @@
 		}
 
 		.main-title {
-			font-size: 3.8rem;
+			font-size: 80px;
 			font-weight: 700;
 			font-family: Georgia, serif;
 			color: #d4af37;
 			text-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
 			white-space: nowrap;
 			animation: titleGlow 3s 3.3s infinite alternate;
+			word-break: normal;
 		}
 
 		@keyframes titleGlow {
@@ -347,6 +345,23 @@
 				opacity: 0;
 			}
 		}
+
+		footer {
+			padding: 15px 20px;
+			text-align: center;
+			color: #555;
+		}
+
+		/* 
+		footer address {
+			font-style: normal;
+			line-height: 1.6;
+		}*/
+
+
+		/* footer a:hover {
+			text-decoration: underline;
+		} */
 	</style>
 </head>
 
@@ -371,14 +386,6 @@
 		<!-- 金粉粒子容器 -->
 		<div class="gold-dust" id="goldDust"></div>
 
-
-		<!-- 裂纹 -->
-		<svg class="cracks" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
-			<path class="gold-line" d="M200 200 Q120 80 50 150" />
-			<path class="gold-line" d="M200 200 Q280 90 340 180" />
-			<path class="gold-line" d="M200 200 Q100 300 30 340" />
-		</svg>
-		<strong data-text="Where Broken Becomes Beautiful">Where Broken Becomes Beautiful</strong>
 		<!-- 文字容器 -->
 		<div class="text-container">
 			<div class="line">
@@ -410,6 +417,16 @@
 			<a href="about.html" class="nav-item">About</a>
 		</nav>
 
+
+		<footer>
+			<address>
+				**Email:** <a href="mailto:contact@example.com">info@kintsugi.com</a>
+
+				<br>
+
+				**Address:** Kintsugi Studio
+			</address>
+		</footer>
 	</div>
 
 	<script>
