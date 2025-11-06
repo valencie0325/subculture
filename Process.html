@@ -240,6 +240,8 @@
 	<audio id="audio_magical-twinkle-242245" src="sound/magical-twinkle-242245.mp3"></audio>
 	<audio id="audio_sound-effect-twinklesparkle-115095" src="sound/sound-effect-twinklesparkle-115095.mp3"></audio>
 	<audio id="audio_synth-twinkle-alert-sound-001-8436" src="sound/synth-twinkle-alert-sound-001-8436.mp3"></audio>
+	<audio id="audio_hillcrest" src="sound/Hillcrest Ave 5.m4a"></audio>
+
 	<script>
 		const cupImg = document.getElementById('cup_img');
 		const glueImg = document.getElementById('glue_img');
@@ -258,6 +260,7 @@
 		const audio_magical_echo = document.getElementById('audio_magical-echo-395710');
 		const audio_magical_twinkle = document.getElementById('audio_magical-twinkle-242245');
 		const audio_synth_twinkle_alert = document.getElementById('audio_synth-twinkle-alert-sound-001-8436');
+		const audio_hillcrest = document.getElementById('audio_hillcrest');
 
 		let scatterImgs = [];
 		let scattered = false;
@@ -687,7 +690,7 @@
 				{
 					img.src = img.src.replace('cup', 'gule');
 					img.dataset.highlighted = 'true';
-					audio_synth_twinkle_alert.play().catch(e => console.error(e));
+					audio_hillcrest.play().catch(e => console.error(e));
 				}
 				if (!img.dataset.highlighted) allHighlighted = false;
 			});
