@@ -168,7 +168,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img id="glue_img" src="img/K2/k2-2.png" alt="ASSEMBLE" height="350px" weight="350px">
+			<img id="glue_img" src="img/k2/k2-2.png" alt="ASSEMBLE" height="350px" weight="350px">
 		</div>
 	</div>
 	<div class="container">
@@ -179,7 +179,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img id="clock_img" src="img/K3/k30-1.png" alt="WAIT">
+			<img id="clock_img" src="img/k3/k30-1.png" alt="WAIT">
 		</div>
 	</div>
 	<div class="container">
@@ -196,7 +196,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img id="paper_img" src="img/K4/K4-2.png" alt="REPAIR">
+			<img id="paper_img" src="img/k4/k4-2.png" alt="REPAIR">
 		</div>
 	</div>
 	<div class="container">
@@ -208,7 +208,7 @@
 		</div>
 		<div class="middle_line"></div>
 		<div class="image">
-			<img id="brush_img" src="img/K5/k5-1.png" alt="REVEAL">
+			<img id="brush_img" src="img/k5/k5-1.png" alt="REVEAL">
 		</div>
 	</div>
 	<div class="container">
@@ -351,7 +351,7 @@
 
 				if (i == 8)
 				{
-					glueImg.src = "img/K2/k2-1.png";
+					glueImg.src = "img/k2/k2-1.png";
 					initDrag();
 				}
 			});
@@ -400,9 +400,9 @@
 				const left = rect.left + window.scrollX;
 				const top = rect.top + window.scrollY;
 
-				// 创建 K3-2
+				// 创建 k3-2
 				const k32 = new Image();
-				k32.src = 'img/K3/K30-2s.png';
+				k32.src = 'img/k3/k30-2s.png';
 				k32.style.position = 'absolute';
 				k32.style.left = left + 'px';
 				k32.style.top = top + 'px';
@@ -412,9 +412,9 @@
 				k32.style.transition = 'transform 5s linear';
 				document.body.appendChild(k32);
 
-				// 创建 K3-3
+				// 创建 k3-3
 				const k33 = new Image();
-				k33.src = 'img/K3/K30-2.png';
+				k33.src = 'img/k3/k30-2.png';
 				k33.style.position = 'absolute';
 				k33.style.left = left + 'px';
 				k33.style.top = top + 'px';
@@ -443,7 +443,7 @@
 		function step_paperImg()
 		{
 			// paper_img 是 REPAIR 步骤图片
-			paperImg.src = 'img/K4/k4-1.png';
+			paperImg.src = 'img/k4/k4-1.png';
 
 			paperImg.addEventListener('mouseenter', (e) =>
 			{
@@ -481,7 +481,7 @@
 
 			// 创建 k4-4.png
 			const k44 = new Image();
-			k44.src = 'img/K4/k4-3.png';
+			k44.src = 'img/k4/k4-3.png';
 			k44.style.position = 'absolute';
 			k44.style.left = maskArea.x + 'px';
 			k44.style.top = maskArea.y + 'px';
@@ -545,7 +545,7 @@
 		{
 			if (isBrush) return;
 			isBrush = true;
-			brushImg.src = 'img/K5/k5-2.png';
+			brushImg.src = 'img/k5/k5-2.png';
 
 
 			// 创建遮罩区域 (120%)
@@ -563,7 +563,7 @@
 
 			// 创建 k4-4.png
 			const k44 = new Image();
-			k44.src = 'img/K5/k5-1.png';
+			k44.src = 'img/k5/k5-1.png';
 			k44.style.position = 'absolute';
 			k44.style.left = (maskArea.x - 200) + 'px';
 			k44.style.top = maskArea.y + 'px';
@@ -602,7 +602,7 @@
 				);
 				if (dist > 200)
 				{
-					brushImg.src = 'img/K5/k5-1.png';
+					brushImg.src = 'img/k5/k5-1.png';
 					k44.remove();
 					step_finishImg();
 				}
@@ -618,7 +618,7 @@
 		{
 			if (isFinish) return;
 			isFinish = true;
-			finishImg.src = 'img/K6/k6-1.png';
+			finishImg.src = 'img/k6/k6-1.png';
 			finishImg.classList.remove('disabled-image');
 
 			audio_magical_twinkle.play().catch(e => console.error(e));
@@ -628,7 +628,7 @@
 			const top = rect.top + window.scrollY;
 
 			const k61 = new Image();
-			k61.src = 'img/K6/k6-2.png';
+			k61.src = 'img/k6/k6-2.png';
 			k61.style.position = 'absolute';
 			k61.style.left = left + 'px';
 			k61.style.top = top + 'px';
@@ -639,7 +639,7 @@
 			document.body.appendChild(k61);
 
 			const k62 = new Image();
-			k62.src = 'img/K6/k6-3.png';
+			k62.src = 'img/k6/k6-3.png';
 			k62.style.position = 'absolute';
 			k62.style.left = left + 'px';
 			k62.style.top = top + 'px';
@@ -736,7 +736,7 @@
 					glueImg.style.transition = 'left 0.6s ease, top 0.6s ease';
 					glueImg.style.left = originalLeft + 'px';
 					glueImg.style.top = originalTop + 'px';
-					glueImg.src = 'img/K2/K2-3.png';
+					glueImg.src = 'img/k2/k2-3.png';
 
 
 					// 恢复 glue_img 到 DOM 原位
