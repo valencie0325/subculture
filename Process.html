@@ -371,7 +371,7 @@
 				k32.style.width = rect.width + 'px';
 				k32.style.height = rect.height + 'px';
 				k32.style.zIndex = '10';
-				k32.style.transition = 'transform 15s linear';
+				k32.style.transition = 'transform 5s linear';
 				document.body.appendChild(k32);
 
 				// 创建 K3-3
@@ -455,8 +455,8 @@
 					Math.pow(k44.offsetLeft - startX, 2) +
 					Math.pow(k44.offsetTop - startY, 2)
 				);
-				if (dist > 756)
-				{  // 20cm ≈ 756px
+				if (dist > 200)
+				{
 					paper_img.src = 'img/k4.png';
 					k44.remove();
 					step_brushImg()
@@ -528,7 +528,7 @@
 					Math.pow(k44.offsetLeft - startX, 2) +
 					Math.pow(k44.offsetTop - startY, 2)
 				);
-				if (dist > 378)
+				if (dist > 100)
 				{
 					brushImg.src = 'img/K5/k5-1.png';
 					k44.remove();
@@ -614,9 +614,9 @@
 
 				if (overlapping && !img.dataset.highlighted)
 				{
-					img.style.outline = '3px solid gold';
-					img.style.outlineOffset = '-3px';
+					img.src = img.src.replace('cup', 'gule');
 					img.dataset.highlighted = 'true';
+
 				}
 				if (!img.dataset.highlighted) allHighlighted = false;
 			});
