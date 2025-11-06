@@ -119,6 +119,18 @@
 			opacity: 0.2;
 			cursor: not-allowed;
 		}
+
+		.powder {
+			position: absolute;
+			width: 3px;
+			height: 3px;
+			background: #d4af37;
+			border-radius: 50%;
+			pointer-events: none;
+			opacity: 1;
+			box-shadow: 0 0 7px rgba(212, 175, 55, 0.9);
+			animation: powderFall 1.3s linear forwards;
+		}
 	</style>
 </head>
 
@@ -217,7 +229,17 @@
 		<a href="history&story.html" class="nav-item">History</a>
 		<a href="about.html" class="nav-item">About</a>
 	</div>
-
+	<audio id="audio_broken-bottle" src="sound/broken-bottle-191998.mp3"></audio>
+	<audio id="audio_charming-twinkle-sound-for-fantasy-and-magic-250240"
+		src="sound/charming-twinkle-sound-for-fantasy-and-magic-250240.mp3"></audio>
+	<audio id="audio_clock-ticking-sound-effect-240503" src="sound/clock-ticking-sound-effect-240503.mp3"></audio>
+	<audio id="audio_construction-sanding-wood-sandpaper-71263"
+		src="sound/construction-sanding-wood-sandpaper-71263.mp3"></audio>
+	<audio id="audio_magical-background-6892" src="sound/magical-background-6892.mp3"></audio>
+	<audio id="audio_magical-echo-395710" src="sound/magical-echo-395710.mp3"></audio>
+	<audio id="audio_magical-twinkle-242245" src="sound/magical-twinkle-242245.mp3"></audio>
+	<audio id="audio_sound-effect-twinklesparkle-115095" src="sound/sound-effect-twinklesparkle-115095.mp3"></audio>
+	<audio id="audio_synth-twinkle-alert-sound-001-8436" src="sound/synth-twinkle-alert-sound-001-8436.mp3"></audio>
 	<script>
 		const cupImg = document.getElementById('cup_img');
 		const glueImg = document.getElementById('glue_img');
@@ -225,6 +247,17 @@
 		const paperImg = document.getElementById('paper_img');
 		const brushImg = document.getElementById('brush_img');
 		const finishImg = document.getElementById('finish_img');
+
+
+		const audio_broken_bottle = document.getElementById('audio_broken-bottle');
+		const audio_charming_twinkle = document.getElementById('audio_charming-twinkle-sound-for-fantasy-and-magic-250240');
+		const audio_clock_ticking = document.getElementById('audio_clock-ticking-sound-effect-240503');
+		const audio_twinklesparkle = document.getElementById('audio_sound-effect-twinklesparkle-115095');
+		const audio_sandpaper = document.getElementById('audio_construction-sanding-wood-sandpaper-71263');
+		const audio_magical_background = document.getElementById('audio_magical-background-6892');
+		const audio_magical_echo = document.getElementById('audio_magical-echo-395710');
+		const audio_magical_twinkle = document.getElementById('audio_magical-twinkle-242245');
+		const audio_synth_twinkle_alert = document.getElementById('audio_synth-twinkle-alert-sound-001-8436');
 
 		let scatterImgs = [];
 		let scattered = false;
@@ -290,6 +323,8 @@
 			if (scattered) return;
 			const rect = cupImg.getBoundingClientRect();
 			const positions = generateEdgePositions();
+
+			audio_broken_bottle.play().catch(e => console.error(e));
 
 			scatterImgs.forEach((img, i) =>
 			{
@@ -385,6 +420,8 @@
 				k33.style.zIndex = '10';
 				document.body.appendChild(k33);
 
+				audio_clock_ticking.play().catch(e => console.error(e));
+
 				// 旋转
 				requestAnimationFrame(() =>
 				{
@@ -393,6 +430,8 @@
 
 				k32.addEventListener('transitionend', () =>
 				{
+					audio_clock_ticking.pause();
+					audio_magical_twinkle.play().catch(e => console.error(e));
 					step_paperImg()
 				});
 			}
@@ -403,11 +442,32 @@
 			// paper_img 是 REPAIR 步骤图片
 			paperImg.src = 'img/K4/k4-1.png';
 
+			paperImg.addEventListener('mouseenter', (e) =>
+			{
+				const rect = paperImg.getBoundingClientRect();
+				const centerX = rect.left + rect.width / 2;
+				const centerY = rect.top + rect.height / 2;
+
+				for (let j = 0; j < 9; j++)
+				{
+					const p = document.createElement('div');
+					p.className = 'powder';
+					const angle = Math.random() * Math.PI * 2;
+					const force = Math.random() * 20 + 10;
+					p.style.left = centerX + Math.cos(angle) * force + 'px';
+					p.style.top = centerY + Math.sin(angle) * force + 'px';
+					p.style.animationDelay = j * 0.05 + 's';
+					document.body.appendChild(p);
+					setTimeout(() => p.remove(), 1300);
+				}
+			});
+
+
 			// 创建遮罩区域 (120%)
 			const rect = paperImg.getBoundingClientRect();
 			const centerX = rect.left + rect.width / 2 + window.scrollX;
 			const centerY = rect.top + rect.height / 2 + window.scrollY;
-			const size = rect.width * 1.2;
+			const size = rect.width * 1.1;
 
 			const maskArea = {
 				x: centerX - size / 2,
@@ -451,14 +511,22 @@
 				k44.style.left = (mouseX - parseFloat(k44.dataset.offsetX)) + 'px';
 				k44.style.top = (mouseY - parseFloat(k44.dataset.offsetY)) + 'px';
 
+				if (audio_sandpaper.paused)
+				{
+					audio_sandpaper.loop = true;
+					audio_sandpaper.play().catch(e => console.error(e));
+				}
+
 				const dist = Math.sqrt(
 					Math.pow(k44.offsetLeft - startX, 2) +
 					Math.pow(k44.offsetTop - startY, 2)
 				);
-				if (dist > 200)
+				if (dist > 400)
 				{
 					paper_img.src = 'img/k4.png';
 					k44.remove();
+					audio_sandpaper.pause();
+					audio_twinklesparkle.play().catch(e => console.error(e));
 					step_brushImg()
 				}
 			});
@@ -475,6 +543,7 @@
 			if (isBrush) return;
 			isBrush = true;
 			brushImg.src = 'img/K5/k5-2.png';
+
 
 			// 创建遮罩区域 (120%)
 			const rect = brushImg.getBoundingClientRect();
@@ -528,7 +597,7 @@
 					Math.pow(k44.offsetLeft - startX, 2) +
 					Math.pow(k44.offsetTop - startY, 2)
 				);
-				if (dist > 100)
+				if (dist > 200)
 				{
 					brushImg.src = 'img/K5/k5-1.png';
 					k44.remove();
@@ -548,6 +617,8 @@
 			isFinish = true;
 			finishImg.src = 'img/K6/k6-1.png';
 			finishImg.classList.remove('disabled-image');
+
+			audio_magical_twinkle.play().catch(e => console.error(e));
 
 			const rect = finishImg.getBoundingClientRect();
 			const left = rect.left + window.scrollX;
@@ -616,7 +687,7 @@
 				{
 					img.src = img.src.replace('cup', 'gule');
 					img.dataset.highlighted = 'true';
-
+					audio_synth_twinkle_alert.play().catch(e => console.error(e));
 				}
 				if (!img.dataset.highlighted) allHighlighted = false;
 			});
@@ -680,6 +751,7 @@
 					glueImg.style.zIndex = '';
 					glueImg.style.transition = '';
 
+					audio_magical_twinkle.play().catch(e => console.error(e));
 					step_waitingImg();
 
 				}, 1000);
